@@ -39,6 +39,7 @@ async function main() {
     })
 }
 
+app.set("trust proxy",1)
 app.use(session({
     secret: process.env.COOKIE_SECRET_KEY,
     saveUninitialized: false,// initialize session id only when any value is assigned to session object by server
@@ -51,7 +52,8 @@ app.use(session({
     cookie: {
         secure: false, //if true, cookie will be set on onlye https  
         httpOnly: true,
-        maxAge: 60 * 60 * 1000 // generally on clinet side
+        maxAge: 60 * 60 * 1000, // generally on clinet side
+        sameSite:"none"
     }
 
 }))
