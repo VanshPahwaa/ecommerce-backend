@@ -41,6 +41,7 @@ async function main() {
     })
 }
 
+const isproduction=process.env.ISPRODUCTION=='TRUE'
 
 app.use(session({
     secret: process.env.COOKIE_SECRET_KEY,
@@ -52,7 +53,7 @@ app.use(session({
         ttl: 60// use to manipulate the duration of cookie on db
     }),
     cookie: {
-        secure: false, //if true, cookie will be set on onlye https  
+        secure: isproduction?true:false, //if true, cookie will be set on onlye https  
         httpOnly: true,
         maxAge: 60 * 60 * 1000, // generally on clinet side
         sameSite:"none",
