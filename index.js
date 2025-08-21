@@ -8,6 +8,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 require("dotenv").config()
 
+app.set("trust proxy",1)
+
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true
@@ -39,7 +41,7 @@ async function main() {
     })
 }
 
-app.set("trust proxy",1)
+
 app.use(session({
     secret: process.env.COOKIE_SECRET_KEY,
     saveUninitialized: false,// initialize session id only when any value is assigned to session object by server
@@ -53,7 +55,8 @@ app.use(session({
         secure: false, //if true, cookie will be set on onlye https  
         httpOnly: true,
         maxAge: 60 * 60 * 1000, // generally on clinet side
-        sameSite:"none"
+        sameSite:"none",
+        path: "/"
     }
 
 }))
